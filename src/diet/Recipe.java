@@ -1,5 +1,10 @@
 package diet;
 
+import java.lang.invoke.VarHandle.AccessMode;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Represents a recipe of the diet.
  * 
@@ -9,7 +14,7 @@ package diet;
  * 
  *
  */
-public class Recipe implements NutritionalElement {
+public class Recipe implements NutritionalElement  {
 	
 	/**
 	 * Adds the given quantity of an ingredient to the recipe.
@@ -19,35 +24,74 @@ public class Recipe implements NutritionalElement {
 	 * @param quantity the amount in grams of the raw material to be used
 	 * @return the same Recipe object, it allows method chaining.
 	 */
+
+	public String name;
+	public Food food;
+	public HashMap<String,Double> ingredients=new HashMap<>();
+	public Recipe(String name, Food food) {
+		this.name = name;
+		this.food = food;
+	}
+
+	
 	public Recipe addIngredient(String material, double quantity) {
-		return null;
+		ingredients.put(material, quantity);
+		return this;
 	}
 
 	@Override
 	public String getName() {
-		return null;
+		return this.name;
 	}
 
 	
 	@Override
 	public double getCalories() {
-		return -1.0;
+		double sum=0;
+		for(String key:ingredients.keySet()){
+			NutritionalElement x=food.getRawMaterial(key);
+			sum+=x.getCalories()*(ingredients.get(key)/100);
+
+
+		}
+		return sum;
 	}
 	
 
 	@Override
 	public double getProteins() {
-		return -1.0;
+		double sum=0;
+		for(String key:ingredients.keySet()){
+			NutritionalElement x=food.getRawMaterial(key);
+			sum+=x.getProteins()*(ingredients.get(key)/100);
+
+
+		}
+		return sum;
 	}
 
 	@Override
 	public double getCarbs() {
-		return -1.0;
+		double sum=0;
+		for(String key:ingredients.keySet()){
+			NutritionalElement x=food.getRawMaterial(key);
+			sum+=x.getCarbs()*(ingredients.get(key)/100);
+
+
+		}
+		return sum;
 	}
 
 	@Override
 	public double getFat() {
-		return -1.0;
+		double sum=0;
+		for(String key:ingredients.keySet()){
+			NutritionalElement x=food.getRawMaterial(key);
+			sum+=x.getFat()*(ingredients.get(key)/100);
+
+
+		}
+		return sum;
 	}
 
 	/**

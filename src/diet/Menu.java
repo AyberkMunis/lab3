@@ -1,5 +1,8 @@
 package diet;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Represents a complete menu.
  * 
@@ -17,8 +20,18 @@ public class Menu implements NutritionalElement {
 	 * @param quantity the amount in grams of the recipe to be used
 	 * @return the same Menu to allow method chaining
 	 */
+	public Food food;
+	public String name;
+	public ArrayList<String> products=new ArrayList();
+	public HashMap<String,Double> recipies=new HashMap<>();
     public Menu addRecipe(String recipe, double quantity) {
-		return null;
+		recipies.put(recipe, quantity);
+		return this;
+	}
+
+	public Menu(Food food, String name) {
+		this.food = food;
+		this.name = name;
 	}
 
 	/**
@@ -30,12 +43,13 @@ public class Menu implements NutritionalElement {
 	 * @return the same Menu to allow method chaining
 	 */
     public Menu addProduct(String product) {
-		return null;
+		products.add(product);
+		return this;
 	}
 
 	@Override
 	public String getName() {
-		return null;
+		return this.name;
 	}
 
 	/**
@@ -43,7 +57,20 @@ public class Menu implements NutritionalElement {
 	 */
 	@Override
 	public double getCalories() {
-		return -1.0;
+		double sum=0;
+		for(String key:recipies.keySet()){
+			NutritionalElement x=food.getRecipe(key);
+			sum+=x.getCalories()*(recipies.get(key)/100);
+
+
+		}
+		for(String key:products){
+			NutritionalElement x=food.getProduct(key);
+			sum+=x.getCalories();
+
+
+		}
+		return sum;
 	}
 
 	/**
@@ -51,7 +78,20 @@ public class Menu implements NutritionalElement {
 	 */
 	@Override
 	public double getProteins() {
-		return -1.0;
+		double sum=0;
+		for(String key:recipies.keySet()){
+			NutritionalElement x=food.getRecipe(key);
+			sum+=x.getProteins()*(recipies.get(key)/100);
+
+
+		}
+		for(String key:products){
+			NutritionalElement x=food.getProduct(key);
+			sum+=x.getProteins();
+
+
+		}
+		return sum;
 	}
 
 	/**
@@ -59,7 +99,20 @@ public class Menu implements NutritionalElement {
 	 */
 	@Override
 	public double getCarbs() {
-		return -1.0;
+		double sum=0;
+		for(String key:recipies.keySet()){
+			NutritionalElement x=food.getRecipe(key);
+			sum+=x.getCarbs()*(recipies.get(key)/100);
+
+
+		}
+		for(String key:products){
+			NutritionalElement x=food.getProduct(key);
+			sum+=x.getCarbs();
+
+
+		}
+		return sum;
 	}
 
 	/**
@@ -67,7 +120,20 @@ public class Menu implements NutritionalElement {
 	 */
 	@Override
 	public double getFat() {
-		return -1.0;
+		double sum=0;
+		for(String key:recipies.keySet()){
+			NutritionalElement x=food.getRecipe(key);
+			sum+=x.getFat()*(recipies.get(key)/100);
+
+
+		}
+		for(String key:products){
+			NutritionalElement x=food.getProduct(key);
+			sum+=x.getFat();
+
+
+		}
+		return sum;
 	}
 
 	/**

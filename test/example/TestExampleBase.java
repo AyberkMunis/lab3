@@ -1,6 +1,8 @@
 package example;
 import static org.junit.Assert.*;
 
+import java.io.OutputStream;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -54,9 +56,8 @@ public class TestExampleBase {
         Recipe r = foods.createRecipe("Pasta and Nutella");
         
         assertNotNull("Missing recipe",r);
-
-        r.addIngredient("Pasta", 70).
-          addIngredient("Nutella", 30);
+        r.addIngredient("Pasta", 70);
+        r.addIngredient("Nutella", 30);      
         
         assertEquals("Computation of calories for recipe is wrong", 404.0 , r.getCalories(), 0.1);
         assertTrue("Recipe values should be per 100g", r.per100g());

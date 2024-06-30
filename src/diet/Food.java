@@ -1,12 +1,18 @@
 package diet;
 
 import java.util.Collection;
-
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.ArrayList;
+import diet.rawmat;
+import diet.product;
 /**
  * Facade class for the diet management.
  * It allows defining and retrieving raw materials and products.
  *
  */
+
 public class Food {
 
 	/**
@@ -18,7 +24,22 @@ public class Food {
 	 * @param carbs carbs per 100g
 	 * @param fat fats per 100g
 	 */
+	public Collection<NutritionalElement> rawmats=new ArrayList<>();
+	public Collection<NutritionalElement> pro=new ArrayList<>();
+	public Collection<NutritionalElement> recipeelist=new ArrayList<>();
 	public void defineRawMaterial(String name, double calories, double proteins, double carbs, double fat) {
+		List<NutritionalElement> names=rawmats.stream().filter(x -> x.equals(name)).collect(Collectors.toList());
+		if(names.contains(name)){
+			return;
+		}
+		rawmat newob= new rawmat(name, calories, proteins, carbs, fat);
+		rawmats.add(newob);
+
+
+
+
+
+
 	}
 
 	/**
@@ -26,7 +47,8 @@ public class Food {
 	 * @return collection of raw materials though the {@link NutritionalElement} interface
 	 */
 	public Collection<NutritionalElement> rawMaterials() {
-		return null;
+
+		return rawmats;
 	}
 
 	/**
@@ -35,7 +57,8 @@ public class Food {
 	 * @return  a raw material though the {@link NutritionalElement} interface
 	 */
 	public NutritionalElement getRawMaterial(String name) {
-		return null;
+		NutritionalElement x=rawmats.stream().filter(a->a.getName().equals(name)).findFirst().orElse(null);
+		return x;
 	}
 
 	/**
@@ -48,6 +71,12 @@ public class Food {
 	 * @param fat fats for a product unit
 	 */
 	public void defineProduct(String name, double calories, double proteins, double carbs, double fat) {
+		List<NutritionalElement> names=pro.stream().filter(x -> x.equals(name)).collect(Collectors.toList());
+		if(names.contains(name)){
+			return;
+		}
+		product newob= new product(name, calories, proteins, carbs, fat);
+		pro.add(newob);
 	}
 
 	/**
@@ -55,7 +84,7 @@ public class Food {
 	 * @return collection of products though the {@link NutritionalElement} interface
 	 */
 	public Collection<NutritionalElement> products() {
-		return null;
+		return pro;
 	}
 
 	/**
@@ -64,7 +93,8 @@ public class Food {
 	 * @return  a product though the {@link NutritionalElement} interface
 	 */
 	public NutritionalElement getProduct(String name) {
-		return null;
+		NutritionalElement x=pro.stream().filter(a->a.getName().equals(name)).findAny().orElse(null);
+		return x;
 	}
 
 	/**
@@ -74,7 +104,10 @@ public class Food {
 	 * @return the newly created Recipe object
 	 */
 	public Recipe createRecipe(String name) {
-		return null;
+		Recipe r=new Recipe(name, this);
+		recipeelist.add(r);
+
+		return r;
 	}
 	
 	/**
@@ -82,7 +115,7 @@ public class Food {
 	 * @return collection of recipes though the {@link NutritionalElement} interface
 	 */
 	public Collection<NutritionalElement> recipes() {
-		return null;
+		return recipeelist;
 	}
 
 	/**
@@ -91,7 +124,8 @@ public class Food {
 	 * @return  a recipe though the {@link NutritionalElement} interface
 	 */
 	public NutritionalElement getRecipe(String name) {
-		return null;
+		NutritionalElement r=recipeelist.stream().filter(x->x.getName().equals(name)).findAny().orElse(null);
+		return r;
 	}
 
 	/**
@@ -101,6 +135,7 @@ public class Food {
 	 * @return the newly created menu
 	 */
 	public Menu createMenu(String name) {
-		return null;
+		Menu mnew=new Menu(this,name);
+		return mnew;
 	}
 }
