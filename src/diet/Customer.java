@@ -12,7 +12,7 @@ public class Customer {
 	}
 	
 	public String getEmail() {
-		return null;
+		return "Arda";
 	}
 	
 	public String getPhone() {
